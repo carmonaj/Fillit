@@ -1,0 +1,64 @@
+A A . .
+. A . .
+. A . .
+B B B B // c doesn't fit; continue 
+
+. A A .
+. . A .
+. . A .
+. . A . // b doesn't fit; continue
+
+C . A A
+C C C A
+. . . A
+B B B B // d doesn't fit; continue
+
+. . A A
+C . . A
+C C C A
+B B B B
+
+D D A A
+C D D A
+C C C A
+B B B B // good
+
+. A A .
+. . A .
+. . A .
+. . . .
+
+   go to column
+   check if column is empty
+	. empty
+	.	. check if mino fits
+	.		. if mino fits
+	.		.	. drop mino
+	.		.		. move to next column, goto (31)
+	.		.
+	.		. if mino doesn't fit	
+	.			. check if other mino(s) fit(s)/ in order
+	.				. if other mino fits
+	.				.	. drop mino
+	.				.		. move to next column, use working mino, goto (31)
+	.				.
+	.				. if other mino doesn't fit
+	.					. check if there is another mino
+	.						. if there is another mino, goto (40)
+	.						.	
+	.						. if there are no more minos
+	.							. revert back to mino which did fit, o.mino
+	.							. check if we can move o.mino to the next column
+	.								. if we can move o.mino to the next column
+	.								.	. move o.mino to the next column
+	.								.	. revert to working mino
+	.								.	. move to 1st column, goto (31)
+	.								.
+	.								. if we can't move o.mino to the next column
+	.									. check if o.mino reaches end of grid when moved
+	.										. if mino doesn't reach end of grid
+	.										. 	. move to next column, goto (51)
+	.										. if mino does reach end of grid
+	.											. ** do something **	 
+	. !empty
+		. move to next column, goto (43)
