@@ -6,7 +6,7 @@
 /*   By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/27 16:21:30 by jcarmona          #+#    #+#             */
-/*   Updated: 2016/11/03 14:52:47 by jcarmona         ###   ########.fr       */
+/*   Updated: 2016/11/06 16:18:38 by jcarmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int		calc_map_size(char **minos)
 	size = 1;
 	mino_sum = ft_2strlen(minos) * 4;
 	if (mino_sum == 4)
-		while (size * size <= mino_sum)
+		while (size * size < mino_sum)
 			size++;
 	else
-		while (size * size <= mino_sum) //<=
+		while (size * size < mino_sum) //<=
 			size++;
 	return (size);
 }
@@ -114,10 +114,12 @@ void	place_mino(int put[4], char *map)
 	int k;
     static int a = 65;
 
+	if (a > 90)
+		a = 65;
 	k = 0;
 	while (k < 4)
 	{
-		printf("put %d: %d\n", k, put[k]);
+		//printf("put %d: %d\n", k, put[k]);
 		map[put[k]] = a;
 		k++;
 	}
@@ -145,40 +147,43 @@ t_tet		place(char *map, int start, int *crds)
     int	put[4];
 	int values[2];
 	t_tet	t_tetmino;
-    
+
     pos = 0;
     i = start;
-    while (map[i])
-    {
-        k = 0;
-        if (map[i] == '.')
-        {
-            pos = i + 1;
-			t_tetmino.coords[k] = start; //k:0
-            put[k] = pos-1; //k:0
-			t_tetmino.coords[++k] = pos-1; //k:1
-            j = 0;
-            while (j < 3)
-            {
-				check_avail(map, pos, crds[j++], values);
-				if (values[0] == 1)
-				{
-					pos = values[1];
-					put[k] = pos-1; //k:1
-					t_tetmino.coords[++k] = pos-1; //k:2 to k:3
-				}
-				else
-					pos = values[1];
-				if (k == 4)
-				{
-					place_mino(put, map);
-					t_tetmino.valid = 1;
-					return (t_tetmino);
-				}
-            }
-        }
-		i++;
-    }
+    
+	//while (map[i])
+    //{
+
+	k = 0;
+	if (map[i] == '.')
+	{
+		pos = i + 1;
+		t_tetmino.coords[k] = start; //k:0
+		put[k] = pos-1; //k:0
+		t_tetmino.coords[++k] = pos-1; //k:1
+		j = 0;
+		while (j < 3)
+		{
+			check_avail(map, pos, crds[j++], values);
+			if (values[0] == 1)
+			{
+				pos = values[1];
+				put[k] = pos-1; //k:1
+				t_tetmino.coords[++k] = pos-1; //k:2 to k:3
+			}
+			else
+				pos = values[1];
+			if (k == 4)
+			{
+				place_mino(put, map);
+				t_tetmino.valid = 1;
+				return (t_tetmino);
+			}
+		}
+	}
+	//i++;
+	
+    //}
    	t_tetmino.valid = 0;
 	return (t_tetmino);
 }
@@ -196,45 +201,95 @@ void	revert_map(char *map, int *history)
 		map[history[i++]] = '.';
 }
 
-char	*solve (char *map, int index, int tet[][3], int num)
+
+int		solve (char *map, int index, int tet[][3], int num)
 {
-	static int count = 0;
+	if (num == g_num_minos)
+		return (1);
+	int i;
+
+	i = 0;
+	t_tet	t_tetmino;
+	index = 0;
+	//t_tetmino = place(map, index, tet[num]);
+
+	while (map[i])
+	{
+		t_tetmino = place(map, i, tet[num]);
+		if (t_tetmino.valid == 1)
+		{
+			ft_memcpy(g_history[num],t_tetmino.coords, sizeof(g_history[num]));
+			printf("good:\n%s", map);
+
+			if (solve(map, 0, tet, num+1))
+				return (1);
+			else
+			{				
+				printf("bad:\n%s", map);
+				revert_map(map, g_history[num]);
+			}
+
+		}
+		i++;
+	}
+
+	return (0);
+
+	//static int count = 0;
+	//static int invalid_num = -1;
+
+	/*if(num < 0)
+		num = 0;
 
 	if (num == g_num_minos)
 		return (map);
-	if (num < 0 && index > 25)
+	*/
+	/*if (num == 0 && index > g_map_size-5)
 	{
 		count++;
-		index = count;
-		printf("count/index: %d", count);
-		map = ".....\n.....\n.....\n.....\n.....\n";
-	}
-	printf("num: %d\n",num);
-	printf("index: %d\n", index);
-	t_tet	t_tetmino;
-	t_tetmino = place(map, index, tet[num]);
-	//printf("index: %d\n", t_tetmino.coords[0]);
-	printf("coord 1: %d\n", t_tetmino.coords[1]);
-	printf("coord 2: %d\n", t_tetmino.coords[2]);
-	printf("coord 3: %d\n", t_tetmino.coords[3]);
-	printf("coord 4: %d\n", t_tetmino.coords[4]);
+		revert_map(map, g_history[0]);
+		solve(map, count, g_coords, 0);
+	}*/
+
+/*	printf("map size: %d\n", g_map_size);
 	
-	printf("--------------------------\n\n");
+	printf("invalid_num: %d\n", invalid_num);	
+	printf("Num: %d\n",num);
+	printf("Tet#: %d\n", num+1);
+	printf("Index: %d\n", index);
+*/
+	
+/*	printf("Coord 1: %d\n", t_tetmino.coords[1]);
+	printf("Coord 2: %d\n", t_tetmino.coords[2]);
+	printf("Coord 3: %d\n", t_tetmino.coords[3]);
+	printf("Coord 4: %d\n\n", t_tetmino.coords[4]);
+*/
+
+	/*	
 	if (t_tetmino.valid == 0)
 	{
-		printf("mino not valid\n");
-	
+		printf("Tet#: %d Doesn't Fit\n", num+1);
+		printf("Goto Previous Map & Move Prev Tet#: %d; 1 pos. fwrd\n", num);
+
 		revert_map(map, g_history[num-1]);
-		printf("PREV MAP:\n%s", map);
-		solve(map, index+1, tet, num-1);
+
+		printf("Prev Map:\n%s", map);
+		printf("------------\n\n");
+		
+		g_history[num][0] = 0;	
+		solve(map, g_history[num-1][0] + 1, tet, num-1);
 	}
 	else
 	{
+		printf("Tet#: %d Fits; Check next Tet\n", num+1);		
 		ft_memcpy(g_history[num],t_tetmino.coords, sizeof(g_history[num]));
-		printf("map:\n%s", map);
-		solve(map, index, tet, num+1);
+		printf("Map:\n%s", map);
+		printf("------------\n\n");	
+		
+		solve(map, 0, tet, num+1);
 	}
-	return (map);
+	return (NULL);
+	*/
 }
 
 
@@ -259,7 +314,8 @@ int		main(int argc, char **argv)
 			map = map_gen(minos);
 			i = 0;
 
-			printf("%s", solve(map, 0, g_coords, 0));
+			solve(map, 0, g_coords, 0);
+			printf("\n\n%s", map);
 		
 		/*	t_tetmino = place(map, 0, g_coords[0]);	
 

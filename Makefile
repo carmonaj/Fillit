@@ -6,7 +6,7 @@
 #    By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 14:18:14 by jcarmona          #+#    #+#              #
-#    Updated: 2016/11/02 22:23:44 by jcarmona         ###   ########.fr        #
+#    Updated: 2016/11/04 23:26:57 by jcarmona         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIB		= -L include/
 
 INCLUDE = -I include/
 
-CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g -O2 #-fsanitize=address
 
 SRC 	= src/
 

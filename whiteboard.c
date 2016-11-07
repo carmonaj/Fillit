@@ -73,3 +73,65 @@ void	revert_map(char *map, int history)
 }
 
 
+check if tet fits 
+tet#1 starts search at index 0
+tet#1 fits
+save tet#1 position and index in map state
+
+check if nxt tet fits
+tet#2 starts search at index 0
+tet#2 fits
+save tet#2 position and index in map state
+
+check if nxt tet fits
+tet#3 starts search at index 0
+if tet doesn't fit, revert back to previous map state and tet
+
+reverted back to tet#2
+revert back to prev map
+increment tet#2's index
+check if tet#2fits
+
+tet#2 doesn't fit, so reset tet#2's index to 0
+revert back to previous map state and tet
+
+reverted back to tet#1
+revert back to prev map
+incrment tet#1's index
+check if tet#1 fits
+
+if tet#1 doesn't fit
+increment tet#1's index
+
+
+if tet#1 fits
+save tet#1 position and index in map state
+
+check if nxt tet fits
+tet#2 starts search at index 0
+tet#2 fits
+save tet#2 position and index in map state
+
+check if next tet fits
+tet#3 starts search at index 0
+tet#3 doesn't fit
+revert back to previous map state and tet
+
+reverted back to tet#2
+revert back to prev map
+increment tet#2 index
+check if tet#2 fits
+tet#2 fits
+save map  tet#2 position and index in map state
+
+check if nxt tet fits
+tet#3 starts search at index 0
+if tet#3 doesn't fit
+revert back to previouos map state and tet
+increment tet#2 index
+if tet#2 doesn't fit
+revert back to tet#1
+....
+...
+..
+
