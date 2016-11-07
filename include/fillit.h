@@ -6,7 +6,7 @@
 /*   By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/24 15:58:42 by jcarmona          #+#    #+#             */
-/*   Updated: 2016/11/01 14:47:04 by jcarmona         ###   ########.fr       */
+/*   Updated: 2016/11/06 18:49:51 by jcarmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #define BUFF_SIZE 1024
 
 #include <fcntl.h>
+
+typedef	struct	s_t{
+	int	coords[5];
+	int	valid;
+}				t_tet;
 
 int		rd_f(char *f, char buff[BUFF_SIZE]);
 int		nl_check(int count, char c);
