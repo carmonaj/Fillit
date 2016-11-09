@@ -14,31 +14,22 @@
 #include "fillit.h"
 #include <stdio.h>
 
-int		ft_2strlen(char **minos)
-{
-	int len;
+extern int	g_coords[26][3];
+char		**g_minos;
 
-	len = 0;
-	while (minos[len])
-		len++;
-	return (len);
-}
-
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	char buff[1024];
-	char **minos;
+	char buff[1025];
+	char *map;
 
 	if (argc == 2)
+	{
 		if (rd_f(argv[1], buff))
 		{
-			if ((minos = rd_minos(buff)))
-			{
-				put_minos(minos);
-				printf("%d\n", ft_2strlen(minos));
-			}
-			else
-				put_err();
+			g_minos = rd_minos(buff);
+			map = map_gen(g_minos, 0);
+			solve(&map, g_coords, 0);
+			ft_putstr(map);
 		}
-	return (0);
+	}
 }

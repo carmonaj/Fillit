@@ -6,7 +6,7 @@
 #    By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 14:18:14 by jcarmona          #+#    #+#              #
-#    Updated: 2016/11/04 23:26:57 by jcarmona         ###   ########.fr        #
+#    Updated: 2016/11/08 15:33:58 by jcarmona         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ LIB		= -L include/
 
 INCLUDE = -I include/
 
-CFLAGS	= -Wall -Wextra -Werror -g -O2 #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC 	= src/
 
-FILES	= read.c validate.c store.c solve.c utils.c
+FILES	= fillit.c read.c validate.c store.c solve.c utils.c map_gen.c
 
 OBJS 	= $(FILES:.c=.o)
 

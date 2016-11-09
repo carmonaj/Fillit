@@ -14,75 +14,14 @@
 #include "fillit.h"
 #include <stdio.h>
 
-extern int g_coords[26][3];
-extern int g_num_minos;
-int g_history[26][5];
-int g_map_size;
-int	g_size;
+extern char	**g_minos;
+extern int	g_coords[26][3];
+extern int	g_num_minos;
+int			g_history[26][5];
+int			g_map_size;
+int			g_size;
+int			g_alpha_char = 65;
 
-int		ft_2strlen(char **s)
-{
-	int len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-int		calc_map_size(char **minos)
-{
-	int size;
-	int mino_sum;
-
-	size = 1;
-	mino_sum = ft_2strlen(minos) * 4;
-	if (mino_sum == 4)
-		while (size * size < mino_sum)
-			size++;
-	else
-		while (size * size <= mino_sum)
-			size++;
-	return (size);
-}
-
-char	*fill_map(char *map, int map_size)
-{
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (i < map_size - 1)
-	{
-		count++;
-		if (count == g_size + 1)
-		{
-			map[i] = '\n';
-			count = 0;
-		}
-		else
-			map[i] = '.';
-		i++;
-	}
-	map[i] = '\0';
-	return (map);
-}
-
-char	*map_gen(char **minos)
-{
-	int		size;
-	int		map_size;
-	char	*map;
-
-	size = calc_map_size(minos);
-	g_size = size;
-	map_size = ((size * size) + (size + 1));
-	g_map_size = map_size;
-	if (!(map = (char*)malloc(sizeof(char) * (map_size))))
-		put_err();
-	return (fill_map(map, map_size));
-}
 
 int		*check_avail(char *map, int pos, int coord, int values[2])
 {
@@ -109,18 +48,16 @@ int		*check_avail(char *map, int pos, int coord, int values[2])
 
 void	place_mino(int put[4], char *map)
 {
-	static int	a = 65;
 	int			k;
 
 	k = 0;
-	if (a > 90)
-		a = 65;
+	if (g_alpha_char > 90)
+		g_alpha_char = 65;
 	while (k < 4)
 	{
-		map[put[k]] = a;
+		map[put[k]] = g_alpha_char;
 		k++;
 	}
-	a++;
 }
 
 t_tet	place(char *map, int start, int *crds)
@@ -175,47 +112,42 @@ void	revert_map(char *map, int *history)
 		map[history[i++]] = '.';
 }
 
-int		solve(char *map, int tet[][3], int num)
+int		solve(char **map, int tet[][3], int num)
 {
+	int static size = 1;
 	int		i;
 	t_tet	t_tetmino;
+
 
 	if (num == g_num_minos)
 		return (1);
 	i = 0;
-	while (map[i])
+	while ((*map)[i])
 	{
-		t_tetmino = place(map, i, tet[num]);
+		t_tetmino = place(*map, i, tet[num]);
 		if (t_tetmino.valid == 1)
 		{
+			g_alpha_char++;
 			ft_memcpy(g_history[num], t_tetmino.coords, sizeof(g_history[num]));
-			printf("good:\n%s", map);
 			if (solve(map, tet, num + 1))
 				return (1);
 			else
 			{
-				printf("bad:\n%s", map);
-				revert_map(map, g_history[num]);
+				g_alpha_char--;
+				revert_map(*map, g_history[num]);
+			}
+		}
+		else	
+		{
+			if ((num == 0 && i == 0) || (num == 0 && i == g_map_size-5) )	
+			{
+				
+				free(*map);
+				*map = map_gen(g_minos, size++);
+				i = -1;
 			}
 		}
 		i++;
 	}
 	return (0);
-}
-
-int		main(int argc, char **argv)
-{
-	char buff[1025];
-	char **minos;
-	char *map;
-
-	if (argc == 2)
-	{
-		if (rd_f(argv[1], buff))
-		{
-			minos = rd_minos(buff);
-			map = map_gen(minos);
-			solve(map, g_coords, 0);
-		}
-	}
 }

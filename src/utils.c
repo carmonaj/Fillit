@@ -23,7 +23,7 @@ void	put_err(void)
 }
 
 /*
-** Function to display 2d minos array
+** Function to display 2d string array
 */
 
 void	put_minos(char **minos)
@@ -34,4 +34,18 @@ void	put_minos(char **minos)
 		ft_putstr("\n");
 		minos++;
 	}
+}
+
+/*
+** Function returns length of a 2d string array
+*/
+
+int		ft_2strlen(char **s)
+{
+	int len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }
