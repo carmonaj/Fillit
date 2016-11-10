@@ -6,7 +6,7 @@
 /*   By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/24 15:58:42 by jcarmona          #+#    #+#             */
-/*   Updated: 2016/11/06 18:49:51 by jcarmona         ###   ########.fr       */
+/*   Updated: 2016/11/09 21:04:19 by jcarmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	store_mino(char *mino, char**minos);
 char	**rd_minos(char *buff);
 char	*map_gen(char **g_minos, int size);
 char	*fill_map(char *map, int map_size);
+t_tet	place(char *map, int start, int *crds);
 
 #endif
