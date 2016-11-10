@@ -35,10 +35,11 @@ all: $(NAME)
 $(NAME):
 	$(CC) $(CFLAGS) -c $(addprefix srcs/, $(FILES)) $(INCLUDE) 
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME) 
+	mkdir objs/
 	mv $(OBJS) objs/
 
 clean:
-	rm -rf $(addprefix objs/,$(OBJS))
+	rm -rf objs/
 
 fclean: clean
 	rm -rf $(NAME)
