@@ -30,6 +30,7 @@ int		rd_f(char *f, char buff[BUFF_SIZE])
 			buff[len] = '\0';
 			return (1);
 		}
+	put_err();
 	return (0);
 }
 
