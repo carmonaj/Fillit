@@ -6,7 +6,7 @@
 /*   By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/27 16:21:30 by jcarmona          #+#    #+#             */
-/*   Updated: 2016/11/07 15:07:26 by jcarmona         ###   ########.fr       */
+/*   Updated: 2016/11/09 15:55:49 by jcarmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,14 @@ int		solve(char **map, int tet[][3], int num)
 	t_tet	t_tetmino;
 
 
+
 	if (num == g_num_minos)
 		return (1);
 	i = 0;
 	while ((*map)[i])
 	{
 		t_tetmino = place(*map, i, tet[num]);
+		//printf("tet coords: %d, %d, %d, %d, %d\n", t_tetmino.coords[0],t_tetmino.coords[1],t_tetmino.coords[2], t_tetmino.coords[3], t_tetmino.coords[4]);
 		if (t_tetmino.valid == 1)
 		{
 			g_alpha_char++;
@@ -139,9 +141,8 @@ int		solve(char **map, int tet[][3], int num)
 		}
 		else	
 		{
-			if ((num == 0 && i == 0) || (num == 0 && i == g_map_size-5) )	
+			if (num == 0 && i == g_map_size-5)
 			{
-				
 				free(*map);
 				*map = map_gen(g_minos, size++);
 				i = -1;
