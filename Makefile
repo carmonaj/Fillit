@@ -6,7 +6,7 @@
 #    By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 14:18:14 by jcarmona          #+#    #+#              #
-#    Updated: 2016/11/09 21:04:38 by jcarmona         ###   ########.fr        #
+#    Updated: 2016/11/09 21:36:10 by jcarmona         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ CC		= gcc
 
 LFLAGS 	= $(LIB) $(INCLUDE) -lft
 
-LIB		= -L include/
+LIB		= -L incl/
 
-INCLUDE = -I include/
+INCLUDE = -I incl/
 
-CFLAGS	= -Wall -Wextra -Werror  #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 
-SRC 	= src/
+SRC 	= srcs/
 
 FILES	= fillit.c read.c validate.c store.c solve.c utils.c map_gen.c place.c
 
@@ -33,12 +33,12 @@ OBJS 	= $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(CFLAGS) -c $(addprefix src/, $(FILES)) $(INCLUDE) 
+	$(CC) $(CFLAGS) -c $(addprefix srcs/, $(FILES)) $(INCLUDE) 
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME) 
-	mv $(OBJS) obj/
+	mv $(OBJS) objs/
 
 clean:
-	rm -rf $(addprefix obj/,$(OBJS))
+	rm -rf $(addprefix objs/,$(OBJS))
 
 fclean: clean
 	rm -rf $(NAME)

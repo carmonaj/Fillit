@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve_minos.c                                      :+:      :+:    :+:   */
+/*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/27 16:21:30 by jcarmona          #+#    #+#             */
-/*   Updated: 2016/11/09 21:02:51 by jcarmona         ###   ########.fr       */
+/*   Created: 2016/11/09 23:08:04 by jcarmona          #+#    #+#             */
+/*   Updated: 2016/11/09 23:08:19 by jcarmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-#include <stdio.h>
 
 extern char	**g_minos;
 extern int	g_coords[26][3];
@@ -43,6 +42,7 @@ int		increase_map_size(char **map)
 
 int		solve(char **map, int mino[][3], int num)
 {
+	int			v[2];
 	int			i;
 	t_tet		t_tetmino;
 
@@ -51,7 +51,8 @@ int		solve(char **map, int mino[][3], int num)
 	i = 0;
 	while ((*map)[i])
 	{
-		t_tetmino = place(*map, i, mino[num]);
+		v[1] = 0;
+		t_tetmino = place(*map, i, mino[num], v);
 		if (t_tetmino.valid)
 		{
 			g_alpha_char++;

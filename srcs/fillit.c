@@ -6,13 +6,12 @@
 /*   By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/19 17:49:31 by jcarmona          #+#    #+#             */
-/*   Updated: 2016/11/09 17:04:25 by jcarmona         ###   ########.fr       */
+/*   Updated: 2016/11/09 23:08:26 by jcarmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-#include <stdio.h>
 
 extern int	g_coords[26][3];
 char		**g_minos;
