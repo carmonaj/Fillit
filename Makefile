@@ -14,8 +14,6 @@ NAME	= fillit
 
 CC		= gcc
 
-LFLAGS 	= $(LIB) $(INCLUDE) -lft
-
 LIB		= -L incl/
 
 INCLUDE = -I incl/
