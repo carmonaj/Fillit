@@ -6,11 +6,10 @@
 /*   By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/19 17:49:31 by jcarmona          #+#    #+#             */
-/*   Updated: 2016/11/09 23:08:26 by jcarmona         ###   ########.fr       */
+/*   Updated: 2016/11/10 15:12:54 by wlee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "fillit.h"
 
 extern int	g_coords[26][3];
@@ -30,5 +29,10 @@ int	main(int argc, char **argv)
 			solve(&map, g_coords, 0);
 			ft_putstr(map);
 		}
+	}
+	else
+	{
+		ft_putendl("usage: ./fillit source_file");
+		return (0);
 	}
 }

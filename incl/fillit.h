@@ -14,6 +14,8 @@
 # define FILLIT_H
 # define BUFF_SIZE 1024
 # include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef	struct	s_t{
 	int	coords[5];
@@ -35,5 +37,11 @@ char			**rd_minos(char *buff);
 char			*map_gen(char **g_minos, int size);
 char			*fill_map(char *map, int map_size);
 t_tet			place(char *map, int start, int *crds, int *v);
+void			ft_putendl(char const *s);
+void			ft_putstr(char const *s);
+size_t			ft_strlen(const char *s);
+char			*ft_strsub(char const *s, unsigned int start, size_t len);
+char			*ft_strdup(const char *s1);
+void			*ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif

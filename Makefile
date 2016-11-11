@@ -6,7 +6,7 @@
 #    By: jcarmona <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 14:18:14 by jcarmona          #+#    #+#              #
-#    Updated: 2016/11/09 21:36:10 by jcarmona         ###   ########.fr        #
+#    Updated: 2016/11/10 16:07:44 by wlee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ LIB		= -L incl/
 
 INCLUDE = -I incl/
 
-CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror
 
 SRC 	= srcs/
 
-FILES	= fillit.c read.c validate.c store.c solve.c utils.c map_gen.c place.c
+FILES	= fillit.c read.c validate.c store.c solve.c utils.c map_gen.c place.c utilstwo.c
 
 OBJS 	= $(FILES:.c=.o)
 
@@ -34,7 +34,7 @@ all: $(NAME)
 
 $(NAME):
 	$(CC) $(CFLAGS) -c $(addprefix srcs/, $(FILES)) $(INCLUDE) 
-	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
 	mkdir objs/
 	mv $(OBJS) objs/
 

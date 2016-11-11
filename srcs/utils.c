@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fillit.h"
 
 /*
 **	Function to throw error
@@ -48,4 +48,21 @@ int		ft_2strlen(char **s)
 	while (s[len])
 		len++;
 	return (len);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char	*deststr;
+	char	*srcstr;
+	int		i;
+
+	deststr = (char*)dst;
+	srcstr = (char*)src;
+	i = 0;
+	while (i < (int)n)
+	{
+		deststr[i] = srcstr[i];
+		i++;
+	}
+	return (dst);
 }
