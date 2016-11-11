@@ -20,7 +20,8 @@ int		*check_avail(char *map, int pos, int coord)
 {
 	int *values;
 
-	values = (int*)malloc(sizeof(int) * 2);
+	if (!(values = (int*)malloc(sizeof(int) * 2)))
+		put_err();
 	values[0] = 0;
 	if (coord > 1)
 	{
